@@ -6,7 +6,7 @@
 /*   By: jetownle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:39:31 by jetownle          #+#    #+#             */
-/*   Updated: 2019/06/20 19:46:07 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/06/22 23:38:08 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr("usage: fillit input_file\n");
+		ft_putstr("usage: ./fillit input_file\n");
 		return (1);
 	}
 
