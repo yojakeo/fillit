@@ -6,12 +6,25 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:26:48 by japarbs           #+#    #+#             */
-/*   Updated: 2019/06/22 04:47:24 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/01 20:15:34 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	fillit()
+#include "fillit.h"
 
+int		fillit(int fd)
+{
+	char **gnlread;
+
+
+}
+/*
+**	Perhaps could use chars to guide the program
+*/
+char	*piece_convert()
+{
+
+}
 
 /*
 **		Sudo code / function planning
@@ -20,6 +33,7 @@ int	fillit()
 **
 **		Planned modules
 **	Function to take GNL's **line and converts & confirms pieces.
+**	Perhaps could use chars to guide the program (hjkl,
 **
 **	Algorithm to make a piece fit within current square.
 **

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jetownle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:39:31 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/01 20:04:19 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/01 20:14:28 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 
 int		main(int argc, char **argv)
 {
-
-
+	int fd;
 	if (argc != 2)
 	{
 		ft_putstr("usage: ./fillit input_file\n");
-		return (1);
+		return (-1);
 	}
-
+	fd = open(argv);
+	fillit(fd);
 	return (0);
 }
 
