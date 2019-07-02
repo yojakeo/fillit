@@ -6,13 +6,10 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:39:31 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/01 20:14:28 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/01 22:30:14 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <fcntl.h>
-#include "libft.h"
 #include "fillit.h"
 
 int		main(int argc, char **argv)
