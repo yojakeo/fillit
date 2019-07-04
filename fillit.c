@@ -6,11 +6,13 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:26:48 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/02 21:12:53 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/04 09:08:23 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+# define MINMAPSIZE(tcount) tcount * 4
 
 int		fillit(int fd)
 {
@@ -32,19 +34,29 @@ char **ft_readfd(int fd)
 	return (gnlread);
 }
 /*
-**	key Legend: S is start, H is right, J is down, K is up, L is left.
+**	key Legend: S is start(anchor), R is right, D is down, U is up, L is left.
 **	S is always the upper most left pound of the piece.
 **	piece_convert takes the tetrinmo and converts it to a map of the piece
 **	using the above legend, S always is at the start
+**	..#.  following piece would be formated in *tetrimap[27] as
+**	.###  "SDLRR", after each char read it would place that part of the piece.
 */
-char	*piece_convert(char **gnlread, static char *tetrimap[27])
+char	*piece_convert(char **gnlread, static char *tetrimap)
 {
 
 }
-
-int		format_confirm()
+/*
+**	confirms the formating of the piece by mesuring 3 things. The piece is
+**	a 4x4 grid, each part is connected to another via x and y, and there
+**	are 4 '#' chars in the piece. Else -1 is returned.
+*/
+int		format_confirm(char **gnlread)
 {
+	int partcount;
+	int	x;
+	int	y;
 
+	while ()
 }
 
 /*
@@ -54,7 +66,7 @@ int		format_confirm()
 **
 **		Planned modules
 **	Function to take GNL's **line and converts & confirms pieces.
-**	Perhaps could use chars to guide the program (hjkl, to tell the program to
+**	Uses chars to guide the program (shjkl, to guide the program
 **	though the piece.)
 **
 **	Algorithm to make a piece fit within current square.
