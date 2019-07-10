@@ -3,12 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jetownle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:49:05 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/01 20:04:26 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/09 21:36:55 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
+char	**ft_readfd(int fd, size_t size)
+{
+	char **gnlread;
+
+	if (!(gnlread = (char **)malloc(sizeof(char *) * (size + 1))))
+		return (NULL);
+	while (get_net_line(fd, gnlread))
+		++(gnlread);
+	return (gnlread);
+}
