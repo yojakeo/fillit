@@ -6,7 +6,7 @@
 #    By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/09 21:22:50 by japarbs           #+#    #+#              #
-#    Updated: 2019/07/09 21:33:06 by japarbs          ###   ########.fr        #
+#    Updated: 2019/07/11 17:51:10 by japarbs          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,11 @@ all: $(NAME)
 
 $(NAME):
 	make -C libftplus/
-	gcc $(FLAGS) -o $(NAME) $(SRCS) -I fillit.h -L libftplus/libft.a
+	gcc $(FLAGS) -o $(NAME) $(SRCF) -I fillit.h -L. libftplus/libft.a
+
+debug:
+	make -C libftplus/
+	gcc -g -fsanitize=address $(FLAGS) -o $(NAME) $(SRCF) -I fillit.h -L. libftplus/libft.a
 
 clean:
 	/bin/rm -f $(OBJ)

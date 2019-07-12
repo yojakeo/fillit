@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:27:02 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/09 21:33:34 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/11 17:22:35 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include "libftplus/libft.h"
 
 int		fillit(int fd);

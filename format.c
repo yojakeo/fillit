@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:18:13 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/09 21:03:07 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/11 17:35:58 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 **	Converts the 4 lines from GNL into a single line to be confirmed and
-**	converted to Directional Format.
+**	converted to Directional Format and streamline the process.
 */
 
 char	*gnltopiece(char **gnlread)
