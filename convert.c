@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:20:55 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/09 20:59:16 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/13 20:44:09 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,22 @@
 char	*piece_convert(char *tetrimap)
 {
 	char	*res;
-	// char	*tmp;
+	char	*tmp;
+	int		i;
 
+	i = 0;
 	res = ft_strdup("S");
-	// if (/* condition */)
-	// 	tmp = ft_strjoin(res, "R");
-	// else if (/* condition */)
-	// 	tmp = ft_strjoin(res, "L");
-	// else if (/* condition */)
-	// 	tmp = ft_strjoin(res, "D");
-	// else if (/* condition */)
-	// 	tmp = ft_strjoin(res, "U");
+	while (res)
+	{
+		if (tetrimap[i + 1] == '#' && tetrimap[i] == '#')
+			tmp = ft_strjoin(res, "R");
+		else if (tetrimap[i - 1] == '#' && tetrimap[i] == '#')
+			tmp = ft_strjoin(res, "L");
+		else if (tetrimap[i + 5] == '#' && tetrimap[i] == '#')
+			tmp = ft_strjoin(res, "D");
+		else if (tetrimap[i - 5] == '#' && tetrimap[i] == '#')
+			tmp = ft_strjoin(res, "U");
+	}
 	(void)tetrimap;
 	return (res);
 }

@@ -6,38 +6,48 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:26:48 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/10 15:31:08 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/13 21:08:18 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
-# define MINMAPSIZE(tcount) tcount * 4
+/*
+**	The home of all calls in Fillit, launches Core functions.
+*/
 
 int		fillit(int fd)
 {
-	char **gnlread;
-	char **map;
-	static char *tetrimap[27];
-	size_t	index;
+	char	**gnlread;
+	char	**map;
+	char	*tetrimap[27];
 
-	(void)map;
-	index = 0;
 	gnlread = ft_readfd(fd, 132);
-	while (gnlread)
-	{
-		if ((tetrimap[index] = gnltopiece(gnlread)) == NULL)
-			return (-1);
-		if ((format_confirm(tetrimap[index])) \
-		/*|| (piece_convert(tetrimap[index]))*/ == -1)
-		 	return (-1);
-		++index;
-	}
-	index = 0;
-	while (tetrimap[index])
-		printf("%s\n", tetrimap[index++]);
+	(void)map;
+	if (format_core(gnlread, tetrimap) == -1)
+		return (-1);
 	return (0);
+}
+
+/*
+**	Creates the map of the working area of the size given. ex: if size = 5
+**	function creates a 6x6 double pointer for NULL termination. Then bzeros
+**	the fresh double pointer.
+*/
+
+char	**make_map(int size)
+{
+	char	**map;
+	int		i;
+
+	i = -1;
+	if (!(map = (char **)malloc(sizeof(char *) * (size + 1))))
+		return (NULL);
+	ft_bzero(map, (size + 1));
+	while (map[++i + 1])
+		if (!(map[i] = ft_strnew(size)))
+			return (NULL);
+	return (map);
 }
 
 /*
@@ -58,5 +68,4 @@ int		fillit(int fd)
 **	module to display square and the lettered pieces in the square.
 **
 **	Linked list OR map to keep track of pieces.
-**	
 */
