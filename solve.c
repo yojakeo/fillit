@@ -28,7 +28,9 @@ int sqrt(int num)
 	return (size);
 }
 
-/* Function to count pieces */
+/*
+**	Function to count pieces.
+*/
 int		count(piece)
 {
 	int count;
@@ -39,7 +41,10 @@ int		count(piece)
 	return (count);
 }
 
-*/ Function to calculate smallest possible square and allocate memory accordingly */
+/*
+**	Function to calculate smallest possible square and allocate memory accordingly
+*/
+
 int	smallest(int count)
 {
 	int size;

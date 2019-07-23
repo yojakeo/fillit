@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:18:13 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/13 21:25:02 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/22 21:25:41 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	converted to Directional Format and streamline the process.
 */
 
-char	*gnltopiece(char **gnlread)
+char	*gnltopiece(char ***gnlread)
 {
 	int		line;
 	char	*piece;
@@ -27,15 +27,15 @@ char	*gnltopiece(char **gnlread)
 	piece = ft_strnew(0);
 	while (line != 5)
 	{
-		if (!(tmp = ft_strjoin(piece, *(gnlread))))
-			return (NULL);
+		if (!(tmp = ft_strjoin(piece, **(gnlread))))
+			ERROR("GNL convert(alloc) fail!", NULL)
 		ft_strdel(&piece);
 		piece = tmp;
 		if (!(tmp = ft_strjoin(piece, "\n")))
-			return (NULL);
+			ERROR("GNL convert(alloc) fail!", NULL)
 		ft_strdel(&piece);
 		piece = tmp;
-		++gnlread;
+		++(*gnlread);
 		++line;
 	}
 	return (piece);
@@ -60,15 +60,17 @@ int		format_confirm(char *piece)
 	while (piece[++pos] && pos != 21)
 	{
 		if (!(piece[pos] == '.' || piece[pos] == '#' || piece[pos] == '\n'))
-			return (-1);
+			ERROR("Piece format fail!", -1)
 		if (piece[pos] == '#')
 			++blockcount;
 		if (piece[pos] == '#' && !(piece[pos - 1] == '#' \
 		|| piece[pos + 1] == '#' || piece[pos - 5] == '#' \
 		|| piece[pos + 5] == '#'))
-			return (-1);
+			ERROR("Piece format fail!", -1)
+		if (piece[pos] == '#' && piece[pos + 1] == '.' && piece[pos + 2] == '#')
+			ERROR("Piece format fail!", -1)
 	}
-	if (blockcount != 4 && pos != 21)
-		return (-1);
+	if (piece[pos] && blockcount != 4 && pos != 21)
+		ERROR("Piece format fail!", -1)
 	return (0);
 }

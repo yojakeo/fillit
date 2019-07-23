@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:39:31 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/13 21:10:59 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/22 21:31:41 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ int		main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fillit(fd) == -1)
 		ft_putendl("ERROR! Something went wrong!");
+	else
+		ft_putendl("Should be:\n SRDL\n SDDD\n SRLDD\n SDRLL\n SRRLD\n SRRLLD");
 	return (0);
 }
