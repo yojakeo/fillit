@@ -39,7 +39,7 @@ int	format_core(char **gnlread, char **tetrimap, int *count)
 
 int solve_core(char **tetrimap, int count)
 {
-	if (!(lsdfh)))
+	if (!(count))
 		ERROR("Solve core fail!", -1)
 	return (0);
 }

@@ -26,7 +26,8 @@ char	*block_test(char *tetrimap, int *i, char *res, int *blockcount);
 char	*gnltopiece(char ***gnlread);
 int		format_confirm(char *piece);
 char	**ft_readfd(int fd, size_t size);
-int		format_core(char **gnlread, char **tetrimap);
+int		format_core(char **gnlread, char **tetrimap, int *count);
 char	**make_map(int size);
+int		map_start(int count);
 
 #endif

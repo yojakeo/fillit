@@ -23,13 +23,11 @@ int		fillit(int fd)
 	char	*tetrimap[27];
 	int 	count;
 
-	tetrimap = { 0 };
 	count = 0;
 	gnlread = ft_readfd(fd, 132);
 	(void)map;
 	if (format_core(gnlread, tetrimap, &count) == -1)
 		return (-1);
-	if solve_core();
 	return (0);
 }
 

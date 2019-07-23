@@ -12,6 +12,12 @@
 
 #include "fillit.h"
 
+/*
+**	Takes the given fd and the calculated size of the lines to be read.
+**	using GNL to push into the allocated double pointer.
+**	Returning the read lines.
+*/
+
 char	**ft_readfd(int fd, size_t size)
 {
 	char	**gnlread;

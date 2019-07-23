@@ -18,40 +18,19 @@
 **	4. check if pieces overlap / in bounds of map
 */
 
-int sqrt(int num)
-{
-	int size;
-
-	size = 2;
-	while(size * size < num)
-		size++;
-	return (size);
-}
-
-/*
-**	Function to count pieces.
-*/
-int		count(piece)
-{
-	int count;
-
-	count = 0;
-	while(
-
-	return (count);
-}
-
 /*
 **	Function to calculate smallest possible square and allocate memory accordingly
 */
 
-int	smallest(int count)
+int	map_start(int count)
 {
 	int size;
+	int	blocks;
 
 	size = 2;
-	size = sqrt(count * 4);
-
+	blocks = count * 4;
+	while(size * size < blocks)
+		size++;
 	return (size);
 }
 
