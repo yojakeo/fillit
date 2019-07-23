@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 21:04:20 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/13 21:31:22 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/23 13:53:06 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,7 @@ int	format_core(char **gnlread, char **tetrimap)
 		printf("%s", tetrimap[tetindex++]);
 	return (0);
 }
+
+int solve_core(char *piece)
+{
+	
