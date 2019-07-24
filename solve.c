@@ -6,7 +6,7 @@
 /*   By: jetownle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 18:27:50 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/23 13:53:02 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/23 19:25:59 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 */
 
 /*
-**	Function to calculate smallest possible square and allocate memory accordingly
+**	Function to calculate smallest possible square
 */
 
 int	map_start(int count)
@@ -32,5 +32,48 @@ int	map_start(int count)
 	while(size * size < blocks)
 		size++;
 	return (size);
+}
+
+/* 
+** checks to see if the coordinates given to the function have a '.'
+** or letter/# at the x/y coordinates
+*/
+int check_overlap(char **map, int x, int y)
+{
+	placement = map[x][y];
+	if(placement == '.')
+	{
+		return 1;
+	}
+	else
+	{
+		return 2;
+	}
+}
+
+/* 
+** finds the boundaries of the given map 
+** and checks if the x/y coords are within them
+*/
+int check_inbounds(char **map, int x, int y)
+{
+	int boundx;
+	int boundy;
+	
+	while(map[boundx][boundy] != '\0')
+	{
+		boundx++;
+		boundy++;
+	}
+
+	if(x <= boundx && y <= boundy)
+		return 1;
+	else
+		return 2;
+}
+
+char **insert_pieces(char **tetrimap, char ***map)
+{
+
 }
 

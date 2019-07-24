@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 21:04:20 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/23 13:53:06 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/23 19:44:49 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,14 @@ int	format_core(char **gnlread, char **tetrimap, int *count)
 	return (0);
 }
 
-int solve_core(char **tetrimap, int count)
+int solve_core(char **tetrimap, char ***map, int count)
 {
+	if (check_inbounds(char **map, int x, int y))
+	{
+		if (check_overlap(char **map, int x, int y))
+		{
+			insert_pieces(char **tetrimap, char ***map);
+
 	if (!(count))
 		ERROR("Solve core fail!", -1)
 	return (0);
