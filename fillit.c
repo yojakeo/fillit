@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:26:48 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/24 22:06:56 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/24 22:38:33 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,6 @@ int		fillit(int fd)
 	if (format_core(gnlread, tetrimap, &count) == -1)
 		return (-1);
 	return (0);
-}
-
-/*
-**	Creates the map of the working area of the size given. ex: if size = 5
-**	function creates a 6x6 double pointer for NULL termination. Then bzeros
-**	the fresh double pointer.
-*/
-
-char	**make_map(int size)
-{
-	char	**map;
-	int		i;
-
-	i = -1;
-	if (!(map = (char **)malloc(sizeof(char *) * (size + 1))))
-		return (NULL);
-	ft_bzero(map, (size + 1));
-	while (map[++i + 1])
-	{
-		if (!(map[i] = ft_strnew(size)))
-			return (NULL);
-		ft_memset(map[i], '.', size);
-	}
-	return (map);
 }
 
 /*

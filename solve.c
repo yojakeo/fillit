@@ -6,7 +6,7 @@
 /*   By: jetownle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 18:27:50 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/24 22:13:40 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/24 23:30:07 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,6 @@
 **	3. place pieces recursively and backtrack if neccesary
 **	4. check if pieces overlap / in bounds of map
 */
-
-/*
-**	Function to calculate smallest possible square
-*/
-
-int	map_start(int count)
-{
-	int size;
-	int	blocks;
-
-	size = 2;
-	blocks = count * 4;
-	while(size * size < blocks)
-		size++;
-	return (size);
-}
 
 /* 
 ** checks to see if the coordinates given to the function have a '.'
