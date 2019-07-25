@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:27:02 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/22 21:34:04 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/07/25 00:00:15 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ char	**insert_pieces(char **tetrimap, char ***map);
 */
 char	**ft_readfd(int fd, size_t size);
 /*
-**	Map Making
+**	Map Functions
 */
 int		map_start(int count);
 char	**make_map(int size);
+void	printmap(char **map, int size);
+void	freemap(char **map, int size);
 /*
 **	Fillit Main
 */
