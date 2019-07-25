@@ -6,7 +6,7 @@
 /*   By: jetownle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 18:27:50 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/23 19:25:59 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/24 22:13:40 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int check_overlap(char **map, int x, int y)
 	placement = map[x][y];
 	if(placement == '.')
 	{
-		return (0);
+		return (1);
 	}
 	else
 	{
-		return (1);
+		return (0);
 	}
 }
 
@@ -69,9 +69,20 @@ int check_inbounds(char **map, int x, int y)
 	}
 
 	if(x <= boundx && y <= boundy)
-		return (0);
-	else
 		return (1);
+	else
+		return (0);
+}
+
+/* shifts the anchor of the piece being built on the map */
+void	shift_anchor_x(//anchors current location//, int n)
+{
+	//anchors current location// += n;
+}
+
+void	shift_anchor_y(//anchors current location//, int n)
+{
+	//anchors current location// += n;
 }
 
 char **insert_pieces(char **tetrimap, char ***map)
