@@ -47,8 +47,11 @@ char	**make_map(int size)
 		return (NULL);
 	ft_bzero(map, (size + 1));
 	while (map[++i + 1])
+	{
 		if (!(map[i] = ft_strnew(size)))
 			return (NULL);
+		ft_memset(map[i], '.', size);
+	}
 	return (map);
 }
 

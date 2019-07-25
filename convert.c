@@ -15,6 +15,7 @@
 #define LCHECK	(tetrimap[i[0] - 1] == '#')
 #define DCHECK	(tetrimap[i[0] + 5] == '#')
 #define RCHECK	(tetrimap[i[0] + 1] == '#')
+#define BRETURN(iamt, c) {i[0] += imat; ++blockcount[0]; return (c);}
 
 /*
 **	Converts 21 char strings to "Directional Format"
@@ -31,22 +32,23 @@ char	*piece_convert(char *tetrimap)
 {
 	char	*res;
 	char	*tmp;
-	int		pos;
+	int		i;
 	int		blockcount;
 	char	*c;
 
-	pos = 0;
+	i = 0;
 	blockcount = 0;
-	while (tetrimap[pos] != '#')
-		++pos;
+	while (tetrimap[i] != '#')
+		++i;
 	res = ft_strdup("S");
-	while (tetrimap[pos])
+	while (tetrimap[i])
 	{
-		if ((c = block_test(tetrimap, &pos, res, &blockcount)) == NULL)
+		if ((c = block_test(tetrimap, res, &i, &blockcount)) == NULL)
 			ERROR("Convert fail!", NULL)
 		else if (c[0] == 'E')
 			break;
-		tmp = ft_strjoin(res, c);
+		if (!(tmp = ft_strjoin(res, c)))
+			ERROR("Convert(alloc) fail!", NULL)
 		ft_strdel(&res);
 		res = tmp;
 	}
@@ -68,42 +70,52 @@ char	*piece_convert(char *tetrimap)
 **	
 */
 
-char	*block_test(char *tetrimap, int *i, char *res, int *blockcount)
+char	*block_test(char *tetrimap, char *res, int *i, int *blockcount)
 {
-	int	resi;
+	int		resi;
+	char	*c;
 
 	resi = 0;
 	while (res[resi + 1])
 		++resi;
-	// if (blockcount[0] == 3)
-	// {
-	// 	blockcount[0] = 0;
-	// 	return ("E");
-	// }
-	if (!DCHECK && ((!RCHECK && !LCHECK) || \
+	if (DCHECK && ((!RCHECK && !LCHECK) || \
 	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
-		return ("E");
-	else if (DCHECK && ((!RCHECK && !LCHECK) || \
-	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
-	{
-		i[0] += 5;
-		++blockcount[0];
-		return ("D");
-	}
+		BRETURN(5, "D");
 	else if (LCHECK && !RCHECK && res[resi] != 'L')
+		BRETURN(-1, "L");
+	else if ((c = check_backtrack(tetrimap, res, i, blockcount)) != 'N')
 	{
-		--i[0];
-		++blockcount[0];
-		return ("L");
+
 	}
 	else if (RCHECK)
-	{
-		++i[0];
-		++blockcount[0];
-		return ("R");
-	}
-	// else if (!DCHECK && ((!RCHECK && !LCHECK) || \
-	// ((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
-	// 	return ("E");
-	return ("E");
+		BRETURN(1, "R");
+	else if (!DCHECK && ((!RCHECK && !LCHECK) || \
+	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
+		return ("E");
+	return (NULL);
 }
+
+/*
+**	Checks for if in need to back track. The following pieces require it.
+**	###. ##.. .#.. #... ###. .#.. .##. 
+**	#... #... ###. ##.. .#.. ##.. ##..
+**		 #...	   #...      .#..
+**
+*/
+
+char	*check_backtrack(char *tetrimap, char *res, int *i, int *blockcount)
+{
+	int resi;
+
+	resi = 0;
+	while (res[resi + 1])
+		++resi;
+	if (blockcount[0] == 3 && ((!RCHECK && !DCHECK && LCHECK && tetrimap[i[0] - 2] == '#') \
+		|| (RCHECK && LCHECK && tetrimap[i[0] + 4] == '#')))
+		return ("L");
+	return ("N");
+}
+
+
+
+

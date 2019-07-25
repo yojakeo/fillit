@@ -13,8 +13,9 @@
 #include "fillit.h"
 
 /*
-**	Core of Format related functions for GNL -> 21 char piece strings to be
-**	validated. Then converted from 21 char strings to Directional Format.
+**	Core of Format related functions. Pushes raw 21 char pieces from GNL to
+**	*tetrimap[27], checks format, then converts to Directional Format.
+**	If any function fails, -1 is returned.
 */
 
 int	format_core(char **gnlread, char **tetrimap, int *count)
@@ -31,20 +32,30 @@ int	format_core(char **gnlread, char **tetrimap, int *count)
 		++tetindex;
 		++count[0];
 	}
+	tetrimap[tetindex] = NULL;
 	tetindex = 0;
 	while (tetrimap[tetindex])
 		printf("%s\n", tetrimap[tetindex++]);
 	return (0);
 }
 
+/*
+**	Core of Solving related fucntions.
+*/
+
 int solve_core(char **tetrimap, char ***map, int count)
 {
-	if (check_inbounds(char **map, int x, int y))
-	{
-		if (check_overlap(char **map, int x, int y))
-		{
-			insert_pieces(char **tetrimap, char ***map);
+	int x;
+	int y;
 
+	x = 0;
+	y = 0;
+	if (check_inbounds(*(map), x, y))
+	{
+		if (check_overlap(*(map), x, y))
+		{
+			insert_pieces(tetrimap, map);
+		}
 	if (!(count))
 		ERROR("Solve core fail!", -1)
 	return (0);

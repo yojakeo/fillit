@@ -38,16 +38,17 @@ int	map_start(int count)
 ** checks to see if the coordinates given to the function have a '.'
 ** or letter/# at the x/y coordinates
 */
+
 int check_overlap(char **map, int x, int y)
 {
 	placement = map[x][y];
 	if(placement == '.')
 	{
-		return 1;
+		return (0);
 	}
 	else
 	{
-		return 2;
+		return (1);
 	}
 }
 
@@ -55,6 +56,7 @@ int check_overlap(char **map, int x, int y)
 ** finds the boundaries of the given map 
 ** and checks if the x/y coords are within them
 */
+
 int check_inbounds(char **map, int x, int y)
 {
 	int boundx;
@@ -67,9 +69,9 @@ int check_inbounds(char **map, int x, int y)
 	}
 
 	if(x <= boundx && y <= boundy)
-		return 1;
+		return (0);
 	else
-		return 2;
+		return (1);
 }
 
 char **insert_pieces(char **tetrimap, char ***map)
