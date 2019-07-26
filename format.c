@@ -60,17 +60,17 @@ int		format_confirm(char *piece)
 	while (piece[++pos] && pos != 21)
 	{
 		if (!(piece[pos] == '.' || piece[pos] == '#' || piece[pos] == '\n'))
-			ERROR("Piece format fail!", -1)
+			ERROR("Piece format fail(Invalid char)!", -1)
 		if (piece[pos] == '#')
 			++blockcount;
 		if (piece[pos] == '#' && !(piece[pos - 1] == '#' \
 		|| piece[pos + 1] == '#' || piece[pos - 5] == '#' \
 		|| piece[pos + 5] == '#'))
-			ERROR("Piece format fail!", -1)
+			ERROR("Piece format fail!(No connected blocks)", -1)
 		if (piece[pos] == '#' && piece[pos + 1] == '.' && piece[pos + 2] == '#')
-			ERROR("Piece format fail!", -1)
+			ERROR("Piece format fail!(Broken up piece)", -1)
 	}
 	if (piece[pos] && blockcount != 4 && pos != 21)
-		ERROR("Piece format fail!", -1)
+		ERROR("Piece format fail!(Bad pos or block count)", -1)
 	return (0);
 }

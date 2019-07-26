@@ -28,6 +28,8 @@ int		fillit(int fd)
 	(void)map;
 	if (format_core(gnlread, tetrimap, &count) == -1)
 		return (-1);
+	// if (solve_core(tetrimap, &map, count) == -1)
+	// 	return (-1);
 	return (0);
 }
 

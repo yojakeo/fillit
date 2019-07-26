@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "fillit.h"
+
 /*
-**	Function to calculate smallest possible square
+**	Function to calculate smallest possible square that fits all pieces.
 */
 
 int	map_start(int count)
@@ -29,7 +31,7 @@ int	map_start(int count)
 /*
 **	Creates the map of the working area of the size given. ex: if size = 5
 **	function creates a 6x6 double pointer for NULL termination. Then bzeros
-**	the fresh double pointer.
+**	the fresh pointers before setting each point to '.'(empty).
 */
 
 char	**make_map(int size)
@@ -50,18 +52,22 @@ char	**make_map(int size)
 	return (map);
 }
 
+/*
+**	Prints the map after solved.
+*/
+
 void	printmap(char **map, int size)
 {
 	int i;
 
 	i = 0;
 	while (i < size)
-	{
-		ft_putstr(map[i]);
-		ft_putstr("\n");
-		i++;
-	}
+		ft_putendl(map[i++]);
 }
+
+/*
+**	Frees the map and it's child pointers.
+*/
 
 void	freemap(char **map, int size)
 {
@@ -70,10 +76,8 @@ void	freemap(char **map, int size)
 	i = 0;
 	while (i < size)
 	{
-		free(map[i]);
-		map[i] = 0;
-		i++;
+		ft_strdel(&map[i]);
+		map[i++] = 0;
 	}
-	free(map);
+	ft_strdel(map);
 }
-

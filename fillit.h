@@ -25,6 +25,7 @@
 */
 int		format_core(char **gnlread, char **tetrimap, int *count);
 int		solve_core(char **tetrimap, char ***map, int count);
+int		backtrack_core(char **tetrimap, char ***map);
 /*
 **	Format
 */
@@ -39,9 +40,11 @@ char	*check_backtrack(char *tetrimap, char *res, int *i, int *blockcount);
 /*
 **	Solving
 */
-int		check_overlap(char **map, int x, int y);
-int 	check_inbounds(char **map, int x, int y);
-char	**insert_pieces(char **tetrimap, char ***map);
+int		check_overlap(char **map, int tetindex, int x, int y);
+int		check_inbounds(int x, int y, int size);
+int		insert_pieces(char **tetrimap, char ***map);
+void	progress_placement(int *y, int *x, char tetriblock);
+void	progress_anchor(int *y, int *x, char **map, char *tetrimap);
 /*
 **	Reading
 */

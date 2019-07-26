@@ -14,63 +14,57 @@
 **	size of map = sqrt(number of pieces * 4)
 **	functions to : 1. count pieces
 **	2. get smallest possible map given number of pieces
-**	3. place pieces recursively and backtrack if neccesary
+**	3. place pieces recursively and backtrack if necessary
 **	4. check if pieces overlap / in bounds of map
 */
 
 /* 
-** checks to see if the coordinates given to the function have a '.'
-** or letter/# at the x/y coordinates
+**	Checks to see if current pos is '.'(empty) or if pointed to current piece
+**	(tetindex + 'A') while backtracking on piece placement.
+**	If theres no overlap, return 0(false), else return 1(true).
 */
 
-int check_overlap(char **map, int x, int y)
+int check_overlap(char **map, int tetindex, int x, int y)
 {
-	placement = map[x][y];
-	if(placement == '.')
-	{
-		return (1);
-	}
-	else
-	{
+	if(map[x][y] == '.' || map[x][y] == (tetindex + 'A'))
 		return (0);
-	}
+	return (1);
 }
 
 /* 
-** finds the boundaries of the given map 
-** and checks if the x/y coords are within them
+**	Checks to see if either axis is outside of bounds.
+**	If outside it returns 0(false), else return 1(true).
 */
 
-int check_inbounds(char **map, int x, int y)
+int check_inbounds(int x, int y, int size)
 {
-	int boundx;
-	int boundy;
-	
-	while(map[boundx][boundy] != '\0')
-	{
-		boundx++;
-		boundy++;
-	}
-
-	if(x <= boundx && y <= boundy)
-		return (1);
-	else
+	if (x < 0 || y < 0 || x > size || y > size)
 		return (0);
+	return (1);
 }
 
-/* shifts the anchor of the piece being built on the map */
-void	shift_anchor_x(//anchors current location//, int n)
+/*
+**	shifts the anchor of the piece being built on the map.
+**	checks for overlap & bounds.
+*/
+
+void	progress_anchor(int *y, int *x, char **map, char *tetrimap)
 {
-	//anchors current location// += n;
+
 }
 
-void	shift_anchor_y(//anchors current location//, int n)
+void	progress_placement(int *y, int *x, char tetriblock)
 {
-	//anchors current location// += n;
+	if (tetriblock == 'R')
+		++x[0];
+	else if (tetriblock == 'L')
+		--x[0];
+	else if (tetriblock == 'D')
+		++y[0];
 }
 
-char **insert_pieces(char **tetrimap, char ***map)
+int	insert_pieces(char **tetrimap, char ***map)
 {
-
+	return (0);
 }
 

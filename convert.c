@@ -15,7 +15,7 @@
 #define LCHECK	(tetrimap[i[0] - 1] == '#')
 #define DCHECK	(tetrimap[i[0] + 5] == '#')
 #define RCHECK	(tetrimap[i[0] + 1] == '#')
-#define BRETURN(iamt, c) {i[0] += imat; ++blockcount[0]; return (c);}
+#define BRETURN(n, c) {i[0] += n; ++blockcount[0]; return (c);}
 
 /*
 **	Converts 21 char strings to "Directional Format"
@@ -41,7 +41,7 @@ char	*piece_convert(char *tetrimap)
 	while (tetrimap[i] != '#')
 		++i;
 	res = ft_strdup("S");
-	while (tetrimap[i])
+	while (blockcount != 4)
 	{
 		if ((c = block_test(tetrimap, res, &i, &blockcount)) == NULL)
 			ERROR("Convert fail!", NULL)
@@ -67,7 +67,6 @@ char	*piece_convert(char *tetrimap)
 **	if only 1 connected block from iterated point and 
 **	the blockcount is not 4, go back. (EX: If last cycle
 **	added R (right), add an L (left) to go back to last point.)
-**	
 */
 
 char	*block_test(char *tetrimap, char *res, int *i, int *blockcount)
@@ -78,17 +77,15 @@ char	*block_test(char *tetrimap, char *res, int *i, int *blockcount)
 	resi = 0;
 	while (res[resi + 1])
 		++resi;
-	if (DCHECK && ((!RCHECK && !LCHECK) || \
-	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
-		BRETURN(5, "D");
+	if ((c = check_backtrack(tetrimap, res, i, blockcount)) != NULL)
+		return (c);
 	else if (LCHECK && !RCHECK && res[resi] != 'L')
-		BRETURN(-1, "L");
-	else if ((c = check_backtrack(tetrimap, res, i, blockcount)) != 'N')
-	{
-
-	}
+		BRETURN(-1, "L")
+	else if (DCHECK && ((!RCHECK && !LCHECK) || \
+	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
+		BRETURN(5, "D")
 	else if (RCHECK)
-		BRETURN(1, "R");
+		BRETURN(1, "R")
 	else if (!DCHECK && ((!RCHECK && !LCHECK) || \
 	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
 		return ("E");
@@ -97,10 +94,9 @@ char	*block_test(char *tetrimap, char *res, int *i, int *blockcount)
 
 /*
 **	Checks for if in need to back track. The following pieces require it.
-**	###. ##.. .#.. #... ###. .#.. .##. 
+**	###. ##.. .#.. #... ###. .#.. .##.
 **	#... #... ###. ##.. .#.. ##.. ##..
 **		 #...	   #...      .#..
-**
 */
 
 char	*check_backtrack(char *tetrimap, char *res, int *i, int *blockcount)
@@ -110,10 +106,10 @@ char	*check_backtrack(char *tetrimap, char *res, int *i, int *blockcount)
 	resi = 0;
 	while (res[resi + 1])
 		++resi;
-	if (blockcount[0] == 3 && ((!RCHECK && !DCHECK && LCHECK && tetrimap[i[0] - 2] == '#') \
-		|| (RCHECK && LCHECK && tetrimap[i[0] + 4] == '#')))
-		return ("L");
-	return ("N");
+	if (blockcount[0] == 3 && !RCHECK && !DCHECK && LCHECK && \
+	tetrimap[i[0] - 2] == '#' && tetrimap[i[0] + 3] == '#')
+		BRETURN(3, "LLD");
+	return (NULL);
 }
 
 

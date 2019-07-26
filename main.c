@@ -23,8 +23,8 @@ int		main(int argc, char **argv)
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fillit(fd) == -1)
-		ft_putendl("ERROR! Something went wrong!");
-	else
-		ft_putendl("Should be:\n SRDL\n SDDD\n SRLDD\n SDRLL\n SRRLD\n SRRLLD");
+		ERROR("ERROR! Something went wrong!", -1)
+	// else
+	// 	ft_putendl("Should be:\n SRDL\n SDDD\n SRLDD\n SDRLL\n SRRLD\n SRRLLD");
 	return (0);
 }

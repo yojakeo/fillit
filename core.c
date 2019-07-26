@@ -20,7 +20,7 @@
 
 int	format_core(char **gnlread, char **tetrimap, int *count)
 {
-	size_t	tetindex;
+	int	tetindex;
 
 	tetindex = 0;
 	while (*(gnlread))
@@ -34,7 +34,7 @@ int	format_core(char **gnlread, char **tetrimap, int *count)
 	}
 	tetrimap[tetindex] = NULL;
 	tetindex = 0;
-	while (tetrimap[tetindex])
+	while (tetindex < count[0])
 		printf("%s\n", tetrimap[tetindex++]);
 	return (0);
 }
@@ -45,18 +45,22 @@ int	format_core(char **gnlread, char **tetrimap, int *count)
 
 int solve_core(char **tetrimap, char ***map, int count)
 {
-	int x;
-	int y;
+	static int	x;
+	static int	y;
+	int			tetindex;
+	int			size;
 
-	x = 0;
-	y = 0;
-	if (check_inbounds(*(map), x, y))
+	tetindex = 0;
+	size = map_start(count);
+	while (check_inbounds(x, y, size))
 	{
-		if (check_overlap(*(map), x, y))
-		{
+		if (check_overlap(*(map), tetindex, x, y))
 			insert_pieces(tetrimap, map);
-		}
-	if (!(count))
-		ERROR("Solve core fail!", -1)
+	}
+	return (0);
+}
+
+int	backtrack_core(char **tetrimap, char ***map)
+{
 	return (0);
 }
