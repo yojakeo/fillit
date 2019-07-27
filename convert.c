@@ -79,12 +79,12 @@ char	*block_test(char *tetrimap, char *res, int *i, int *blockcount)
 		++resi;
 	if ((c = check_backtrack(tetrimap, res, i, blockcount)) != NULL)
 		return (c);
-	else if (LCHECK && !RCHECK && res[resi] != 'L')
-		BRETURN(-1, "L")
 	else if (DCHECK && ((!RCHECK && !LCHECK) || \
 	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
 		BRETURN(5, "D")
-	else if (RCHECK)
+	else if (LCHECK && !RCHECK && res[resi] != 'R')
+		BRETURN(-1, "L")
+	else if (RCHECK && res[resi] != 'L')
 		BRETURN(1, "R")
 	else if (!DCHECK && ((!RCHECK && !LCHECK) || \
 	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
@@ -106,9 +106,20 @@ char	*check_backtrack(char *tetrimap, char *res, int *i, int *blockcount)
 	resi = 0;
 	while (res[resi + 1])
 		++resi;
-	if (blockcount[0] == 3 && !RCHECK && !DCHECK && LCHECK && \
+	if (!RCHECK && !DCHECK && LCHECK && \
 	tetrimap[i[0] - 2] == '#' && tetrimap[i[0] + 3] == '#')
-		BRETURN(3, "LLD");
+		BRETURN(3, "LLD")
+	else if (LCHECK && !RCHECK && !DCHECK && tetrimap[i[0] + 4] == '#' \
+	&& res[resi] == 'R')
+		BRETURN(4, "LD")
+	else if (!LCHECK && RCHECK && !DCHECK && tetrimap[i[0] + 6] == '#' \
+	&& res[resi] == 'L')
+		BRETURN(6, "RD")
+	else if (LCHECK && tetrimap[i[0] - 2] == '#' && tetrimap[i[0] - 6] == '#' \
+	&& res[resi] == 'R')
+		BRETURN(-2, "LL")
+	else if (LCHECK && RCHECK && DCHECK && res[resi] == 'R')
+		BRETURN(5, "RLD")
 	return (NULL);
 }
 

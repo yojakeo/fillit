@@ -64,3 +64,21 @@ int	backtrack_core(char **tetrimap, char ***map)
 {
 	return (0);
 }
+
+void	finish_core(char **map, char **tetrimap, char **gnlread, int count)
+{
+	int i;
+
+	// i = 0;
+	// while(map[i])
+	// 	ft_strdel(&map[i++]);
+	// ft_strdel(map);
+	i = 0;
+	while (count > i++)
+		ft_strdel(&tetrimap[i++]);
+	ft_strdel(tetrimap);
+	i = 0;
+	while (gnlread[i])
+		ft_strdel(&gnlread[i++]);
+	ft_strdel(gnlread);
+}

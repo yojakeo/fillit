@@ -30,6 +30,7 @@ int		fillit(int fd)
 		return (-1);
 	// if (solve_core(tetrimap, &map, count) == -1)
 	// 	return (-1);
+	finish_core(map, tetrimap, gnlread, count);
 	return (0);
 }
 

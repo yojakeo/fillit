@@ -26,6 +26,7 @@
 int		format_core(char **gnlread, char **tetrimap, int *count);
 int		solve_core(char **tetrimap, char ***map, int count);
 int		backtrack_core(char **tetrimap, char ***map);
+void	finish_core(char **map, char **tetrimap, char **gnlread, int count);
 /*
 **	Format
 */
