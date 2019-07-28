@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 21:04:20 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/23 19:44:49 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/28 06:45:40 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	format_core(char **gnlread, char **tetrimap, int *count)
 }
 
 /*
-**	Core of Solving related fucntions.
+**	Core of Solving related functions.
 */
 
 int solve_core(char **tetrimap, char ***map, int count)
@@ -52,11 +52,8 @@ int solve_core(char **tetrimap, char ***map, int count)
 
 	tetindex = 0;
 	size = map_start(count);
-	while (check_inbounds(x, y, size))
-	{
-		if (check_overlap((*map[y][x]), tetindex))
-			insert_pieces(tetrimap, map);
-	}
+	map = make_map(size);
+	recurse(tetrimap, tetindex, map, x, y);
 	return (0);
 }
 
