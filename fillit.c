@@ -20,7 +20,7 @@ int		fillit(int fd)
 {
 	char	**gnlread;
 	char	**map;
-	char	*tetrimap[27];
+	char	*tetrimap[27] = {0};
 	int 	count;
 
 	count = 0;

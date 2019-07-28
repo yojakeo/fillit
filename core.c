@@ -54,7 +54,7 @@ int solve_core(char **tetrimap, char ***map, int count)
 	size = map_start(count);
 	while (check_inbounds(x, y, size))
 	{
-		if (check_overlap(*(map), tetindex, x, y))
+		if (check_overlap((*map[y][x]), tetindex))
 			insert_pieces(tetrimap, map);
 	}
 	return (0);

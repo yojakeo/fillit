@@ -24,9 +24,9 @@
 **	If theres no overlap, return 0(false), else return 1(true).
 */
 
-int check_overlap(char **map, int tetindex, int x, int y)
+int check_overlap(char mapchar, int tetindex)
 {
-	if(map[x][y] == '.' || map[x][y] == (tetindex + 'A'))
+	if(mapchar == '.' || mapchar == (tetindex + 'A'))
 		return (0);
 	return (1);
 }
@@ -65,6 +65,7 @@ void	progress_placement(int *y, int *x, char tetriblock)
 
 int	insert_pieces(char **tetrimap, char ***map)
 {
+	progress_placement()
 	return (0);
 }
 
