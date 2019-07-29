@@ -18,24 +18,25 @@
 **	If any function fails, -1 is returned.
 */
 
-int	format_core(char **gnlread, char **tetrimap, int *count)
+int	format_core(char **gnlread, t_piece *pieces)
 {
-	int	tetindex;
+	int i;
 
-	tetindex = 0;
+	i = 0;
 	while (*(gnlread))
 	{
-		if ((!(tetrimap[tetindex] = gnltopiece(&gnlread))) \
-		|| (format_confirm(tetrimap[tetindex])) \
-		|| (!(tetrimap[tetindex] = piece_convert(tetrimap[tetindex]))))
+		if ((!(pieces->pieces[i] = gnltopiece(&gnlread))) \
+		|| (format_confirm(pieces->pieces[i])) \
+		|| (!(pieces->pieces[i] = piece_convert(pieces->pieces[i]))))
 			ERROR("Format core fail!", -1)
-		++tetindex;
-		++count[0];
+		++i;
+		++pieces->count;
 	}
-	tetrimap[tetindex] = NULL;
-	tetindex = 0;
-	while (tetindex < count[0])
-		printf("%s\n", tetrimap[tetindex++]);
+	pieces->pieces[i] = NULL;
+	i = 0;
+	while (i < pieces->count)
+		printf("%s\n", pieces->pieces[i++]);
+	printf("%i\n", pieces->count);
 	return (0);
 }
 
@@ -45,8 +46,8 @@ int	format_core(char **gnlread, char **tetrimap, int *count)
 
 int solve_core(char **tetrimap, char ***map, int count)
 {
-	static int	x;
-	static int	y;
+	t_pos		x;
+	t_pos		y;
 	int			tetindex;
 	int			size;
 
@@ -62,7 +63,7 @@ int	backtrack_core(char **tetrimap, char ***map)
 	return (0);
 }
 
-void	finish_core(char **map, char **tetrimap, char **gnlread, int count)
+void	finish_core(t_map map, t_piece pieces, char **gnlread)
 {
 	int i;
 
@@ -71,9 +72,9 @@ void	finish_core(char **map, char **tetrimap, char **gnlread, int count)
 	// 	ft_strdel(&map[i++]);
 	// ft_strdel(map);
 	i = 0;
-	while (count > i++)
-		ft_strdel(&tetrimap[i++]);
-	ft_strdel(tetrimap);
+	while (pieces.count > i++)
+		ft_strdel(&pieces.pieces[i++]);
+	ft_strdel(pieces.pieces);
 	i = 0;
 	while (gnlread[i])
 		ft_strdel(&gnlread[i++]);

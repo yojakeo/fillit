@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "fillit.h"
+
 /* 
 **	size of map = sqrt(number of pieces * 4)
 **	functions to : 1. count pieces
@@ -27,8 +29,8 @@
 int check_overlap(char mapchar, int tetindex)
 {
 	if(mapchar == '.' || mapchar == (tetindex + 'A'))
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 /* 
@@ -36,11 +38,11 @@ int check_overlap(char mapchar, int tetindex)
 **	If outside it returns 0(false), else return 1(true).
 */
 
-int check_inbounds(int x, int y, int size)
+int check_inbounds(int y, int x, int size)
 {
 	if (x < 0 || y < 0 || x > size || y > size)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 /*
@@ -48,8 +50,20 @@ int check_inbounds(int x, int y, int size)
 **	checks for overlap & bounds.
 */
 
-void	progress_anchor(int *y, int *x, char **map, char *tetrimap)
+void	follow_piece(t_map map, t_piece piece, char c)
 {
+	int	i;
+	t_pos pos;
+
+	i = -1;
+	while (piece.piece[piece.i][++i]) 
+	{
+		if (check_inbounds(pos.y, pos.x, map.size) && \
+		check_overlap(map.map[pos.y][pos.x], tetindex))
+
+		if (valid == 1)
+			map[0][y][x] = c;
+	}
 
 }
 

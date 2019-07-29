@@ -19,18 +19,16 @@
 int		fillit(int fd)
 {
 	char	**gnlread;
-	char	**map;
-	char	*tetrimap[27] = {0};
-	int 	count;
+	t_map	map;
+	t_piece	pieces;
 
-	count = 0;
 	gnlread = ft_readfd(fd, 132);
 	(void)map;
-	if (format_core(gnlread, tetrimap, &count) == -1)
+	if (format_core(gnlread, &pieces) == -1)
 		return (-1);
-	// if (solve_core(tetrimap, &map, count) == -1)
+	// if (solve_core(pieces, &map) == -1)
 	// 	return (-1);
-	finish_core(map, tetrimap, gnlread, count);
+	finish_core(map, pieces, gnlread);
 	return (0);
 }
 

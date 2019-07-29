@@ -60,7 +60,7 @@ int		format_confirm(char *piece)
 	while (piece[++pos] && pos != 21)
 	{
 		if (!(piece[pos] == '.' || piece[pos] == '#' || piece[pos] == '\n'))
-			ERROR("Piece format fail(Invalid char)!", -1)
+			ERROR("Piece format fail!(Invalid char)", -1)
 		if (piece[pos] == '#')
 			++blockcount;
 		if (piece[pos] == '#' && !(piece[pos - 1] == '#' \

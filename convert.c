@@ -12,9 +12,9 @@
 
 #include "fillit.h"
 
-#define LCHECK	(tetrimap[i[0] - 1] == '#')
-#define DCHECK	(tetrimap[i[0] + 5] == '#')
-#define RCHECK	(tetrimap[i[0] + 1] == '#')
+#define LCHECK	(piece[i[0] - 1] == '#')
+#define DCHECK	(piece[i[0] + 5] == '#')
+#define RCHECK	(piece[i[0] + 1] == '#')
 #define BRETURN(n, c) {i[0] += n; ++blockcount[0]; return (c);}
 
 /*
@@ -23,12 +23,12 @@
 **	S is always the upper most left pound of the piece (height being priority).
 **	piece_convert takes the tetromino and converts it to a map of the piece
 **	using the above legend, S always is at the start.
-**	      The following piece would be formated in *tetrimap[27] as "SDRLL".
+**	      The following piece would be formated in *piece[27] as "SDRLL".
 **	..#.  After each char read it would place that block of the piece.
 **	.###  Essentially guiding the program though the piece from the anchor.
 */
 
-char	*piece_convert(char *tetrimap)
+char	*piece_convert(char *piece)
 {
 	char	*res;
 	char	*tmp;
@@ -38,12 +38,12 @@ char	*piece_convert(char *tetrimap)
 
 	i = 0;
 	blockcount = 0;
-	while (tetrimap[i] != '#')
+	while (piece[i] != '#')
 		++i;
 	res = ft_strdup("S");
 	while (blockcount != 4)
 	{
-		if ((c = block_test(tetrimap, res, &i, &blockcount)) == NULL)
+		if ((c = block_test(piece, res, &i, &blockcount)) == NULL)
 			ERROR("Convert fail!", NULL)
 		else if (c[0] == 'E')
 			break;
@@ -69,7 +69,7 @@ char	*piece_convert(char *tetrimap)
 **	added R (right), add an L (left) to go back to last point.)
 */
 
-char	*block_test(char *tetrimap, char *res, int *i, int *blockcount)
+char	*block_test(char *piece, char *res, int *i, int *blockcount)
 {
 	int		resi;
 	char	*c;
@@ -77,7 +77,7 @@ char	*block_test(char *tetrimap, char *res, int *i, int *blockcount)
 	resi = 0;
 	while (res[resi + 1])
 		++resi;
-	if ((c = check_backtrack(tetrimap, res, i, blockcount)) != NULL)
+	if ((c = check_backtrack(piece, res, i, blockcount)) != NULL)
 		return (c);
 	else if (DCHECK && ((!RCHECK && !LCHECK) || \
 	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
@@ -99,7 +99,7 @@ char	*block_test(char *tetrimap, char *res, int *i, int *blockcount)
 **		 #...	   #...      .#..
 */
 
-char	*check_backtrack(char *tetrimap, char *res, int *i, int *blockcount)
+char	*check_backtrack(char *piece, char *res, int *i, int *blockcount)
 {
 	int resi;
 
@@ -107,15 +107,15 @@ char	*check_backtrack(char *tetrimap, char *res, int *i, int *blockcount)
 	while (res[resi + 1])
 		++resi;
 	if (!RCHECK && !DCHECK && LCHECK && \
-	tetrimap[i[0] - 2] == '#' && tetrimap[i[0] + 3] == '#')
+	piece[i[0] - 2] == '#' && piece[i[0] + 3] == '#')
 		BRETURN(3, "LLD")
-	else if (LCHECK && !RCHECK && !DCHECK && tetrimap[i[0] + 4] == '#' \
+	else if (LCHECK && !RCHECK && !DCHECK && piece[i[0] + 4] == '#' \
 	&& res[resi] == 'R')
 		BRETURN(4, "LD")
-	else if (!LCHECK && RCHECK && !DCHECK && tetrimap[i[0] + 6] == '#' \
+	else if (!LCHECK && RCHECK && !DCHECK && piece[i[0] + 6] == '#' \
 	&& res[resi] == 'L')
 		BRETURN(6, "RD")
-	else if (LCHECK && tetrimap[i[0] - 2] == '#' && tetrimap[i[0] - 6] == '#' \
+	else if (LCHECK && piece[i[0] - 2] == '#' && piece[i[0] - 6] == '#' \
 	&& res[resi] == 'R')
 		BRETURN(-2, "LL")
 	else if (LCHECK && RCHECK && DCHECK && res[resi] == 'R')

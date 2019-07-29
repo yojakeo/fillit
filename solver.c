@@ -33,7 +33,7 @@ int check_placement(char **tetrimap, char ***map, int *x, int *y)
 
 }
 
-int remove_piece(char **tetrimap, int tetindex, char ***map. int *x, int *y)
+int remove_piece(char **tetrimap, int tetindex, char ***map, int *x, int *y)
 {
 	
 }
@@ -42,23 +42,23 @@ int remove_piece(char **tetrimap, int tetindex, char ***map. int *x, int *y)
 ** try to solve the map, if it fails increase map size and call it again
 */
 
-int recurse(char **tetrimap, int tetindex, char ***map, int x, int y)
+int recurse(t_piece pieces, t_map map, t_pos pos)
 {
 	if ()
 	{
-		while (check_inbounds(x, y, size))
+		while (check_inbounds(&pos.x, &pos.y, map.size))
 		{
 			if (check_overlap((*map[y][x]), tetindex))
 				insert_pieces(tetrimap, map);
 			else
-				remove_piece(tetrimap, tetindex, map, x, y);
+				remove_piece(tetrimap, tetindex, map, &x, &y);
 		}
 	}
 	else
 	{
-		freemap(map, size);
-		size++;
-		make_map(size);
+		freemap(map, map.size);
+		map.size++;
+		make_map(map.size);
 		recurse();
 	}
 }
