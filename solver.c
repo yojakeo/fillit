@@ -6,7 +6,7 @@
 /*   By: jetownle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 05:41:18 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/28 06:45:13 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/29 08:18:25 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 
 int check_placement(char **tetrimap, char ***map, int *x, int *y)
 {
+	check_inbounds(&pos.x, &pos.y, map.size);
+	
+	check_overlap(*map[y][x]), tetindex);
 
 }
 
@@ -42,14 +45,15 @@ int remove_piece(char **tetrimap, int tetindex, char ***map, int *x, int *y)
 ** try to solve the map, if it fails increase map size and call it again
 */
 
-int recurse(t_piece pieces, t_map map, t_pos pos)
+int recurse(t_piece pieces, t_map map, t_pos pos, int tetindex)
 {
-	if ()
-	{
-		while (check_inbounds(&pos.x, &pos.y, map.size))
+	while (check_inbounds(&pos.x, &pos.y, map.size))
 		{
 			if (check_overlap((*map[y][x]), tetindex))
 				insert_pieces(tetrimap, map);
+				follow_piece(map, piece, tetindex);
+				if (recurse(pieces, map, pos, tetindex)
+						return (1);
 			else
 				remove_piece(tetrimap, tetindex, map, &x, &y);
 		}
@@ -59,6 +63,6 @@ int recurse(t_piece pieces, t_map map, t_pos pos)
 		freemap(map, map.size);
 		map.size++;
 		make_map(map.size);
-		recurse();
+		recurse(pieces, map, pos, tetindex);
 	}
 }

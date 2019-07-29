@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:27:02 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/25 00:00:15 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/07/29 06:38:32 by jetownle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,13 @@ char					*check_backtrack(char *tetrimap, char *res, int *i, int *blockcount);
 */
 int						check_overlap(char mapchar, int tetindex);
 int						check_inbounds(int x, int y, int size);
+void					follow_piece(t_map map, t_piece piece, char c);
 int						insert_pieces(char **tetrimap, char ***map);
 void					progress_placement(int *y, int *x, char tetriblock);
 void					progress_anchor(int *y, int *x, char **map, char *tetrimap);
+int						check_placement(char **tetrimap, char ***map, int *x, int *y);
+int						remove_piece(char **tetrimap, int tetindex, char ***map, int *x, int *y);
+int						recurse(t_piece pieces, t_map map, t_pos pos);
 /*
 **	Reading
 */
