@@ -38,7 +38,6 @@ typedef struct			s_map
 typedef struct			s_piece
 {
 	char				*pieces[27];
-	int					anchor[26][2];
 	int 				i;
 	int 				count;
 }						t_piece;
@@ -46,9 +45,8 @@ typedef struct			s_piece
 **	Cores
 */
 int						format_core(char **gnlread, t_piece *pieces);
-int						solve_core(char **tetrimap, char ***map, int count);
-int						backtrack_core(char **tetrimap, char ***map);
-void					finish_core(char **map, char **tetrimap, char **gnlread, int count);
+int 					solve_core(t_piece *pieces, t_map *map);
+void					finish_core(t_map *map, t_piece *pieces, char **gnlread);
 /*
 **	Format
 */
@@ -61,17 +59,17 @@ char					*piece_convert(char *tetrimap);
 char					*block_test(char *tetrimap, char *res, int *i, int *blockcount);
 char					*check_backtrack(char *tetrimap, char *res, int *i, int *blockcount);
 /*
-**	Solving
+**	Solving & Checks
 */
-int						check_overlap(char mapchar, int tetindex);
+int 					check_overlap(char mapchar);
 int						check_inbounds(int x, int y, int size);
-void					follow_piece(t_map map, t_piece piece, char c);
-int						insert_pieces(char **tetrimap, char ***map);
+int 					solve_map(t_piece *pieces, t_map *map);
+/*
+**	Placement
+*/
+void					place_piece(t_map *map, t_piece *pieces, t_pos pos, char c);
+int						check_piece(t_map *map, t_piece *pieces, t_pos pos);
 void					progress_placement(int *y, int *x, char tetriblock);
-void					progress_anchor(int *y, int *x, char **map, char *tetrimap);
-int						check_placement(char **tetrimap, char ***map, int *x, int *y);
-int						remove_piece(char **tetrimap, int tetindex, char ***map, int *x, int *y);
-int						recurse(t_piece pieces, t_map map, t_pos pos);
 /*
 **	Reading
 */
@@ -81,8 +79,8 @@ char					**ft_readfd(int fd, size_t size);
 */
 int						map_start(int count);
 char					**make_map(int size);
-void					printmap(char **map, int size);
-void					freemap(char **map, int size);
+void					printmap(t_map map);
+void					freemap(t_map *map);
 /*
 **	Fillit Main
 */

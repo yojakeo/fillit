@@ -28,7 +28,7 @@ int		fillit(int fd)
 		return (-1);
 	// if (solve_core(pieces, &map) == -1)
 	// 	return (-1);
-	finish_core(map, pieces, gnlread);
+	finish_core(&map, &pieces, gnlread);
 	return (0);
 }
 

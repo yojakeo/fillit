@@ -56,28 +56,25 @@ char	**make_map(int size)
 **	Prints the map after solved.
 */
 
-void	printmap(char **map, int size)
+void	printmap(t_map map)
 {
 	int i;
 
 	i = 0;
-	while (i < size)
-		ft_putendl(map[i++]);
+	while (i < map.size)
+		ft_putendl(map.map[i++]);
 }
 
 /*
 **	Frees the map and it's child pointers.
 */
 
-void	freemap(char **map, int size)
+void	freemap(t_map *map)
 {
 	int i;
 
 	i = 0;
-	while (i < size)
-	{
-		ft_strdel(&map[i]);
-		map[i++] = 0;
-	}
-	ft_strdel(map);
+	while (i < map->size)
+		ft_strdel(&map->map[i]);
+	ft_strdel(map->map);
 }

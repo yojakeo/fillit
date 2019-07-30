@@ -23,46 +23,71 @@
 ** 5. if all else fails, increase map size
 */
 
+void	place_piece(t_map *map, t_piece *pieces, t_pos pos, char c)
+{
+	int	i;
+	int y;
+	int x;
+
+	i = -1;
+	y = pos.y;
+	x = pos.x;
+	while (pieces->pieces[pieces->i][++i])
+	{
+		progress_placement(&y, &x, pieces->pieces[pieces->i][i]);
+		map->map[y][x] = c;
+	}
+}
+
 /*
-** guided by direction format, checks all locations of piece for
-** overlap / out of bounds
-*/
-
-int check_placement(char **tetrimap, char ***map, int *x, int *y)
-{
-	check_inbounds(&pos.x, &pos.y, map.size);
-	
-	check_overlap(*map[y][x]), tetindex);
-
-}
-
-int remove_piece(char **tetrimap, int tetindex, char ***map, int *x, int *y)
-{
-	
-}
-
-/* 
 ** try to solve the map, if it fails increase map size and call it again
 */
 
-int recurse(t_piece pieces, t_map map, t_pos pos, int tetindex)
+int		solve_map(t_piece *pieces, t_map *map)
 {
-	while (check_inbounds(&pos.x, &pos.y, map.size))
+	t_pos		*pos;
+
+
+	if (!pieces->pieces[pieces->i])
+		return (1);
+	pos->y = -1;
+	while (++pos->y < map->size)
+	{
+		pos->x = -1;
+		while (++pos->x < map->size)
 		{
-			if (check_overlap((*map[y][x]), tetindex))
-				insert_pieces(tetrimap, map);
-				follow_piece(map, piece, tetindex);
-				if (recurse(pieces, map, pos, tetindex)
-						return (1);
-			else
-				remove_piece(tetrimap, tetindex, map, &x, &y);
+			if (check_piece(map, pieces, *pos))
+			{
+				if (solve_map(pieces, map))
+					return (1);
+				else
+					place_piece(map, pieces, *pos, '.');
+			}
 		}
 	}
-	else
-	{
-		freemap(map, map.size);
-		map.size++;
-		make_map(map.size);
-		recurse(pieces, map, pos, tetindex);
-	}
+	return (0);
 }
+
+// int solve_map(t_piece *pieces, t_map *map, t_pos *pos)
+// {
+// 	if ()
+// 	{	
+// 		while (check_inbounds(pos->x, pos->y, map->size))
+// 		{
+// 			if (check_overlap((map->map[pos->y][pos->x])))
+// 				place_piece(map, pieces, pieces->i);
+// 			if (solve_map(pieces, map, pos)
+// 					return (1);
+// 			else
+// 				remove_piece(map, pieces);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		freemap(map, map.size);
+// 		map.size++;
+// 		make_map(map.size);
+// 		solve_map(pieces, map, pos);
+// 	}
+// 	return (0);
+// }

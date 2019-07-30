@@ -52,6 +52,7 @@ char	*piece_convert(char *piece)
 		ft_strdel(&res);
 		res = tmp;
 	}
+	ft_strdel(&piece);
 	return (res);
 }
 

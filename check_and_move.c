@@ -21,14 +21,13 @@
 */
 
 /* 
-**	Checks to see if current pos is '.'(empty) or if pointed to current piece
-**	(tetindex + 'A') while backtracking on piece placement.
+**	Checks to see if current pos is '.'(empty).
 **	If theres no overlap, return 0(false), else return 1(true).
 */
 
-int check_overlap(char mapchar, int tetindex)
+int check_overlap(char mapchar)
 {
-	if(mapchar == '.' || mapchar == (tetindex + 'A'))
+	if (mapchar == '.')
 		return (1);
 	return (0);
 }
@@ -46,26 +45,35 @@ int check_inbounds(int y, int x, int size)
 }
 
 /*
-**	shifts the anchor of the piece being built on the map.
-**	checks for overlap & bounds.
+**	Takes the piece and tests to see if the piece is in a valid spot. Flowing
+**	through the piece via Directional Format. If inbounds and there's no overlap
+**	it goes though and writes the piece down in the map with it's correct char
+**	with the place_piece function.
 */
 
-void	follow_piece(t_map map, t_piece piece, char c)
+int	check_piece(t_map *map, t_piece *pieces, t_pos pos)
 {
 	int	i;
-	t_pos pos;
+	int y;
+	int x;
 
 	i = -1;
-	while (piece.piece[piece.i][++i]) 
+	y = pos.y;
+	x = pos.x;
+	while (pieces->pieces[pieces->i][++i]) 
 	{
-		if (check_inbounds(pos.y, pos.x, map.size) && \
-		check_overlap(map.map[pos.y][pos.x], tetindex))
-
-		if (valid == 1)
-			map[0][y][x] = c;
+		progress_placement(&y, &x, pieces->pieces[pieces->i][i]);
+		if (!(check_inbounds(y, x, map->size) && check_overlap(map->map[y][x])))
+			return (0);
 	}
-
+	place_piece(map, pieces, pos, (pieces->i + 'A'));
+	return (1);
 }
+
+/*
+**	Moves the indexes toward where the placement should go via
+**	Directional Formating.
+*/
 
 void	progress_placement(int *y, int *x, char tetriblock)
 {
@@ -76,10 +84,3 @@ void	progress_placement(int *y, int *x, char tetriblock)
 	else if (tetriblock == 'D')
 		++y[0];
 }
-
-int	insert_pieces(char **tetrimap, char ***map)
-{
-	progress_placement()
-	return (0);
-}
-
