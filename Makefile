@@ -20,11 +20,11 @@ all: $(NAME)
 
 $(NAME):
 	make -C libftplus/
-	gcc $(FLAGS) -o $(NAME) $(SRCF) -I fillit.h -L. libftplus/libft.a
+	gcc $(FLAGS) -o $(NAME) $(SRCF) -I $(INCLUDES) -L. libftplus/libft.a
 
 debug:
 	make -C libftplus/
-	gcc -g $(FLAGS) -o $(NAME) $(SRCF) -I fillit.h -L. libftplus/libft.a
+	gcc -g $(FLAGS) -o $(NAME) $(SRCF) -I $(INCLUDES) -L. libftplus/libft.a
 #-fsanitize=address
 clean:
 	/bin/rm -f $(OBJ)

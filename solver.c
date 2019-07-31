@@ -45,23 +45,26 @@ void	place_piece(t_map *map, t_piece *pieces, t_pos pos, char c)
 
 int		solve_map(t_piece *pieces, t_map *map)
 {
-	t_pos		*pos;
-
+	t_pos		pos;
 
 	if (!pieces->pieces[pieces->i])
 		return (1);
-	pos->y = -1;
-	while (++pos->y < map->size)
+	pos.y = -1;
+	while (++pos.y < map->size)
 	{
-		pos->x = -1;
-		while (++pos->x < map->size)
+		pos.x = -1;
+		while (++pos.x < map->size)
 		{
-			if (check_piece(map, pieces, *pos))
+			if (check_piece(map, pieces, pos))
 			{
+				++pieces->i;
 				if (solve_map(pieces, map))
 					return (1);
 				else
-					place_piece(map, pieces, *pos, '.');
+				{
+					--pieces->i;
+					place_piece(map, pieces, pos, '.');
+				}
 			}
 		}
 	}
@@ -72,7 +75,7 @@ int		solve_map(t_piece *pieces, t_map *map)
 // {
 // 	if ()
 // 	{	
-// 		while (check_inbounds(pos->x, pos->y, map->size))
+// 		while (check_inbounds(pos.x, pos.y, map->size))
 // 		{
 // 			if (check_overlap((map->map[pos->y][pos->x])))
 // 				place_piece(map, pieces, pieces->i);

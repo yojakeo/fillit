@@ -41,14 +41,15 @@ char	**make_map(int size)
 
 	i = -1;
 	if (!(map = (char **)malloc(sizeof(char *) * (size + 1))))
-		return (NULL);
+		ERROR("Make_map alloc fail!(Double Pointer)", NULL);
 	ft_bzero(map, (size + 1));
-	while (map[++i + 1])
+	while (++i <= size)
 	{
 		if (!(map[i] = ft_strnew(size)))
-			return (NULL);
+			ERROR("Make_map alloc fail!(Single Pointer)", NULL);
 		ft_memset(map[i], '.', size);
 	}
+	map[size + 1] = NULL;
 	return (map);
 }
 
@@ -75,6 +76,6 @@ void	freemap(t_map *map)
 
 	i = 0;
 	while (i < map->size)
-		ft_strdel(&map->map[i]);
+		ft_strdel(&map->map[i++]);
 	ft_strdel(map->map);
 }

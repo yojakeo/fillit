@@ -23,6 +23,7 @@ int	format_core(char **gnlread, t_piece *pieces)
 	int i;
 
 	i = 0;
+	pieces->count = 0;
 	while (*(gnlread))
 	{
 		if (pieces->count == 27)
@@ -36,7 +37,7 @@ int	format_core(char **gnlread, t_piece *pieces)
 	}
 	pieces->pieces[i] = NULL;
 	i = 0;
-	while (i < pieces->count)
+	while (i != pieces->count)
 		printf("%s\n", pieces->pieces[i++]);
 	printf("%i\n", pieces->count);
 	return (0);
@@ -51,12 +52,17 @@ int solve_core(t_piece *pieces, t_map *map)
 	int i;
 
 	i = 0;
+	pieces->i = 0;
 	map->size = map_start(pieces->count);
+	if(!(map->map = make_map(map->size)))
+		return (-1);
 	while (!solve_map(pieces, map))
 	{
+		printmap(*map);
 		++map->size;
 		freemap(map);
-		map->map = make_map(map->size);
+		if (!(map->map = make_map(map->size)))
+			return (-1);
 	}
 	return (0);
 }
