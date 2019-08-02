@@ -3,24 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jetownle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 05:41:18 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/29 08:18:25 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/08/01 21:03:16 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
 /*
-** 1. take directionally formatted piece and place it in top left corner
-** 2. take second piece and use directional format of piece to check all 
-** places of piece relative to anchor for overlap / out of bounds
-** 3. place piece in checked position
-** 4. take third piece and check position, if all possible positions have
-** been checked and still no solution, remove previous piece and try
-** another position
-** 5. if all else fails, increase map size
+**	Places the piece with the guidance of Directional Formatting. Each step
+**	setting that index to the given char.
 */
 
 void	place_piece(t_map *map, t_piece *pieces, t_pos pos, char c)
@@ -40,7 +34,11 @@ void	place_piece(t_map *map, t_piece *pieces, t_pos pos, char c)
 }
 
 /*
-** try to solve the map, if it fails increase map size and call it again
+**	Solves the map. Iterates though the map top down, left to right
+**	attempting to place piece. If it does it selects the next piece and
+**	recurses. If the recursion fails it deletes the piece and tries again
+**	on the next iteration. If all fails, it returns 0 for
+**	Solve_core to increase the map size.
 */
 
 int		solve_map(t_piece *pieces, t_map *map)
@@ -70,27 +68,3 @@ int		solve_map(t_piece *pieces, t_map *map)
 	}
 	return (0);
 }
-
-// int solve_map(t_piece *pieces, t_map *map, t_pos *pos)
-// {
-// 	if ()
-// 	{	
-// 		while (check_inbounds(pos.x, pos.y, map->size))
-// 		{
-// 			if (check_overlap((map->map[pos->y][pos->x])))
-// 				place_piece(map, pieces, pieces->i);
-// 			if (solve_map(pieces, map, pos)
-// 					return (1);
-// 			else
-// 				remove_piece(map, pieces);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		freemap(map, map.size);
-// 		map.size++;
-// 		make_map(map.size);
-// 		solve_map(pieces, map, pos);
-// 	}
-// 	return (0);
-// }

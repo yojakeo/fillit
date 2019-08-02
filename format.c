@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:18:13 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/22 21:25:41 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/01 21:36:44 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ char	*gnltopiece(char ***gnlread)
 	piece = ft_strnew(0);
 	while (line != 5)
 	{
-		if (!(tmp = ft_strjoin(piece, **(gnlread))))
-			ERROR("GNL convert(alloc) fail!", NULL)
-		ft_strdel(&piece);
-		piece = tmp;
+		if (**gnlread)
+		{
+			if (!(tmp = ft_strjoin(piece, **(gnlread))))
+				ERROR("GNL convert(alloc) fail!", NULL)
+			ft_strdel(&piece);
+			piece = tmp;
+		}	
 		if (!(tmp = ft_strjoin(piece, "\n")))
 			ERROR("GNL convert(alloc) fail!", NULL)
 		ft_strdel(&piece);

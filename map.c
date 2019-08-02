@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jetownle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 22:32:19 by jetownle          #+#    #+#             */
-/*   Updated: 2019/07/25 00:01:39 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/08/01 21:50:03 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 **	Function to calculate smallest possible square that fits all pieces.
 */
 
-int	map_start(int count)
+int		map_start(int count)
 {
 	int size;
 	int	blocks;
 
 	size = 2;
 	blocks = count * 4;
-	while(size * size < blocks)
+	while (size * size < blocks)
 		size++;
 	return (size);
 }
@@ -54,7 +54,7 @@ char	**make_map(int size)
 }
 
 /*
-**	Prints the map after solved.
+**	Prints the map.
 */
 
 void	printmap(t_map map)
@@ -62,12 +62,12 @@ void	printmap(t_map map)
 	int i;
 
 	i = 0;
-	while (i < map.size)
+	while (i <= map.size)
 		ft_putendl(map.map[i++]);
 }
 
 /*
-**	Frees the map and it's child pointers.
+**	Frees the map and its child pointers.
 */
 
 void	freemap(t_map *map)

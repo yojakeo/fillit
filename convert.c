@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:20:55 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/22 21:51:18 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/01 21:35:43 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #define LCHECK	(piece[i[0] - 1] == '#')
 #define DCHECK	(piece[i[0] + 5] == '#')
 #define RCHECK	(piece[i[0] + 1] == '#')
-#define BRETURN(n, c) {i[0] += n; ++blockcount[0]; return (c);}
 
 /*
 **	Converts 21 char strings to "Directional Format"
@@ -44,11 +43,11 @@ char	*piece_convert(char *piece)
 	while (blockcount != 4)
 	{
 		if ((c = block_test(piece, res, &i, &blockcount)) == NULL)
-			ERROR("Convert fail!", NULL)
-		else if (c[0] == 'E')
-			break;
+			ERROR("Convert fail!", NULL);
+		if (c[0] == 'E')
+			break ;
 		if (!(tmp = ft_strjoin(res, c)))
-			ERROR("Convert(alloc) fail!", NULL)
+			ERROR("Convert(alloc) fail!", NULL);
 		ft_strdel(&res);
 		res = tmp;
 	}
@@ -57,15 +56,27 @@ char	*piece_convert(char *piece)
 }
 
 /*
+**	Function to aid for returns in block_test and check_backtrack.
+*/
+
+char	*breturn(int *i, int amt, int *blockcount, char *charres)
+{
+	i[0] += amt;
+	++blockcount[0];
+	return (charres);
+}
+
+/*
 **	Tests to see if block has been mapped yet. if so it returns the proper
 **	char for the direction. If not it returns NULL.
 **	CASES
-**	Cast priority:
-**	if R = true return "R".
-**	if D = true && R = false return "D".
-**	if L = true && D and R = false return "L".
+**	D is Down, L is Left, R is Right.
+**	Return priority:
+**	If D && NOT R & L are return "D".
+**	If L = true && D and R = false return "L".
+**	If R && previously didn't go L, return "R".
 **	program should never need to go up. Since it starts from the top-left down.
-**	if only 1 connected block from iterated point and 
+**	if only 1 connected block from iterated point and
 **	the blockcount is not 4, go back. (EX: If last cycle
 **	added R (right), add an L (left) to go back to last point.)
 */
@@ -82,11 +93,11 @@ char	*block_test(char *piece, char *res, int *i, int *blockcount)
 		return (c);
 	else if (DCHECK && ((!RCHECK && !LCHECK) || \
 	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
-		BRETURN(5, "D")
+		return (breturn(i, 5, blockcount, "D"));
 	else if (LCHECK && !RCHECK && res[resi] != 'R')
-		BRETURN(-1, "L")
+		return (breturn(i, -1, blockcount, "L"));
 	else if (RCHECK && res[resi] != 'L')
-		BRETURN(1, "R")
+		return (breturn(i, 1, blockcount, "R"));
 	else if (!DCHECK && ((!RCHECK && !LCHECK) || \
 	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
 		return ("E");
@@ -109,21 +120,17 @@ char	*check_backtrack(char *piece, char *res, int *i, int *blockcount)
 		++resi;
 	if (!RCHECK && !DCHECK && LCHECK && \
 	piece[i[0] - 2] == '#' && piece[i[0] + 3] == '#')
-		BRETURN(3, "LLD")
+		return (breturn(i, 3, blockcount, "LLD"));
 	else if (LCHECK && !RCHECK && !DCHECK && piece[i[0] + 4] == '#' \
 	&& res[resi] == 'R')
-		BRETURN(4, "LD")
+		return (breturn(i, 4, blockcount, "LD"));
 	else if (!LCHECK && RCHECK && !DCHECK && piece[i[0] + 6] == '#' \
 	&& res[resi] == 'L')
-		BRETURN(6, "RD")
+		return (breturn(i, 6, blockcount, "RD"));
 	else if (LCHECK && piece[i[0] - 2] == '#' && piece[i[0] - 6] == '#' \
 	&& res[resi] == 'R')
-		BRETURN(-2, "LL")
+		return (breturn(i, -2, blockcount, "LL"));
 	else if (LCHECK && RCHECK && DCHECK && res[resi] == 'R')
-		BRETURN(5, "RLD")
+		return (breturn(i, 5, blockcount, "RLD"));
 	return (NULL);
 }
-
-
-
-

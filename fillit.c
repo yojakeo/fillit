@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:26:48 by japarbs           #+#    #+#             */
-/*   Updated: 2019/07/24 22:38:33 by jetownle         ###   ########.fr       */
+/*   Updated: 2019/08/01 22:00:29 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		fillit(int fd)
 	t_map	map;
 	t_piece	pieces;
 
-	gnlread = ft_readfd(fd, 132);
+	gnlread = ft_readfd(fd);
 	(void)map;
 	if (format_core(gnlread, &pieces) == -1)
 		return (-1);
