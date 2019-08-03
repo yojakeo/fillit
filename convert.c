@@ -6,19 +6,20 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:20:55 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/01 21:35:43 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/03 04:08:51 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-#define LCHECK	(piece[i[0] - 1] == '#')
-#define DCHECK	(piece[i[0] + 5] == '#')
-#define RCHECK	(piece[i[0] + 1] == '#')
+#define BCHECK(b) (*i + b >= 0 && *i + b <= 21)
+#define LCHECK	(*i - 1 >= 0 && piece[*i - 1] == '#')
+#define DCHECK	(*i + 5 <= 21 && piece[*i + 5] == '#')
+#define RCHECK	(*i + 1 <= 21 && piece[*i + 1] == '#')
 
 /*
 **	Converts 21 char strings to "Directional Format"
-**	key Legend: S is start(anchor), R is right, D is down, U is up, L is left.
+**	key Legend: S is start(anchor), R is right, D is down, L is left.
 **	S is always the upper most left pound of the piece (height being priority).
 **	piece_convert takes the tetromino and converts it to a map of the piece
 **	using the above legend, S always is at the start.
@@ -61,7 +62,7 @@ char	*piece_convert(char *piece)
 
 char	*breturn(int *i, int amt, int *blockcount, char *charres)
 {
-	i[0] += amt;
+	*i += amt;
 	++blockcount[0];
 	return (charres);
 }
@@ -118,19 +119,19 @@ char	*check_backtrack(char *piece, char *res, int *i, int *blockcount)
 	resi = 0;
 	while (res[resi + 1])
 		++resi;
-	if (!RCHECK && !DCHECK && LCHECK && \
-	piece[i[0] - 2] == '#' && piece[i[0] + 3] == '#')
+	if (BCHECK(3) && BCHECK(-2) && !RCHECK && !DCHECK && LCHECK && \
+	piece[*i - 2] == '#' && piece[*i + 3] == '#')
 		return (breturn(i, 3, blockcount, "LLD"));
-	else if (LCHECK && !RCHECK && !DCHECK && piece[i[0] + 4] == '#' \
+	else if (BCHECK(4) && !RCHECK && LCHECK && !DCHECK && piece[*i + 4] == '#' \
 	&& res[resi] == 'R')
 		return (breturn(i, 4, blockcount, "LD"));
-	else if (!LCHECK && RCHECK && !DCHECK && piece[i[0] + 6] == '#' \
+	else if (BCHECK(6) && RCHECK && !LCHECK && !DCHECK && piece[*i + 6] == '#' \
 	&& res[resi] == 'L')
 		return (breturn(i, 6, blockcount, "RD"));
-	else if (LCHECK && piece[i[0] - 2] == '#' && piece[i[0] - 6] == '#' \
+	else if (BCHECK(-6) && !RCHECK && LCHECK && piece[*i - 2] == '#' && piece[*i - 6] == '#' \
 	&& res[resi] == 'R')
 		return (breturn(i, -2, blockcount, "LL"));
-	else if (LCHECK && RCHECK && DCHECK && res[resi] == 'R')
+	else if (RCHECK && LCHECK && DCHECK && res[resi] == 'R')
 		return (breturn(i, 5, blockcount, "RLD"));
 	return (NULL);
 }

@@ -6,11 +6,13 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:18:13 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/01 21:36:44 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/03 04:07:31 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+
+#define BCHECK(b) (pos + b >= 0 && pos + b <= 21)
 
 /*
 **	Converts the 4 lines from GNL into a single line to be confirmed and
@@ -56,27 +58,28 @@ char	*gnltopiece(char ***gnlread)
 int		format_confirm(char *piece)
 {
 	int blockcount;
+	int	dotcount;
 	int	pos;
 
 	blockcount = 0;
+	dotcount = 0;
 	pos = -1;
 	while (piece[++pos] && pos != 21)
 	{
 		if (!(piece[pos] == '.' || piece[pos] == '#' || piece[pos] == '\n'))
-		{
-			ft_putstr(piece);
 			ERROR("Piece format fail!(Invalid char)", -1)
-		}
 		if (piece[pos] == '#')
 			++blockcount;
-		if (piece[pos] == '#' && !(piece[pos - 1] == '#' \
-		|| piece[pos + 1] == '#' || piece[pos - 5] == '#' \
-		|| piece[pos + 5] == '#'))
+		if (piece[pos] == '#' && !((BCHECK(-1) && piece[pos - 1] == '#') \
+		|| piece[pos + 1] == '#' || (BCHECK(-5) && piece[pos - 5] == '#') \
+		|| (BCHECK(5) && piece[pos + 5] == '#')))
 			ERROR("Piece format fail!(No connected blocks)", -1)
 		if (piece[pos] == '#' && piece[pos + 1] == '.' && piece[pos + 2] == '#')
 			ERROR("Piece format fail!(Broken up piece)", -1)
+		if (piece[pos] == '.')
+			++dotcount;
 	}
-	if (piece[pos] && blockcount != 4 && pos != 21)
+	if (piece[pos] || blockcount != 4 || pos != 21 || dotcount != 12)
 		ERROR("Piece format fail!(Bad pos or block count)", -1)
 	return (0);
 }

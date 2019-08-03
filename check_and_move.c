@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/15 18:27:50 by jetownle          #+#    #+#             */
-/*   Updated: 2019/08/01 21:21:58 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/03 02:02:00 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		check_overlap(char mapchar)
 
 int		check_inbounds(int y, int x, int size)
 {
-	if (x < 0 || y < 0 || x > size || y > size)
+	if (x < 0 || y < 0 || x >= size || y >= size)
 		return (1);
 	return (0);
 }

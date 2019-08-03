@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 21:04:20 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/02 18:15:43 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/03 04:14:50 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int		format_core(char **gnlread, t_piece *pieces)
 	pieces->count = 0;
 	while (*(gnlread))
 	{
-		if (pieces->count == 27)
-			ERROR("Format core fail!(Too many pieces, max 26)", -1);
+		// if (pieces->count == 27)
+		// 	ERROR("Format core fail!(Too many pieces, max 26)", -1);
 		if ((!(pieces->pieces[i] = gnltopiece(&gnlread))) \
 		|| (format_confirm(pieces->pieces[i])) \
 		|| (!(pieces->pieces[i] = piece_convert(pieces->pieces[i]))))
