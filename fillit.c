@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:26:48 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/03 04:15:05 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/03 05:00:16 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int		fillit(int fd)
 	(void)map;
 	if (format_core(gnlread, &pieces) == -1)
 		return (-1);
-	// if (solve_core(&pieces, &map) == -1)
-	// 	return (-1);
+	if (solve_core(&pieces, &map) == -1)
+		return (-1);
 	finish_core(&map, &pieces, gnlread);
 	return (0);
 }

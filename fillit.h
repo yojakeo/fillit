@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:27:02 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/03 04:06:56 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/04 04:47:47 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include "libftplus/libft.h"
-
-/*
-**	Macros
-*/
-# define ERROR(msg, r) {ft_putendl(msg); return(r);}
 
 /*
 **	Structs
@@ -53,10 +48,15 @@ int						solve_core(t_piece *pieces, t_map *map);
 void					finish_core(t_map *map, t_piece *pieces,
 						char **gnlread);
 /*
+**	Reading
+*/
+char					**ft_readfd(int fd);
+/*
 **	Format
 */
 char					*gnltopiece(char ***gnlread);
 int						format_confirm(char *piece);
+int						format_extra(char *piece, int pos);
 /*
 **	Converting
 */
@@ -78,10 +78,6 @@ void					place_piece(t_map *map, t_piece *pieces, t_pos pos,
 						char c);
 int						check_piece(t_map *map, t_piece *pieces, t_pos pos);
 void					progress_placement(int *y, int *x, char tetriblock);
-/*
-**	Reading
-*/
-char					**ft_readfd(int fd);
 /*
 **	Map Functions
 */

@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/20 19:39:31 by jetownle          #+#    #+#             */
-/*   Updated: 2019/08/03 04:15:32 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/04 01:23:01 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int		main(int argc, char **argv)
 		return (-1);
 	}
 	fd = open(argv[1], O_RDONLY);
-	if (fillit(fd) == -1)
-		ERROR("ERROR! Something went wrong!", -1);
+	if (fd < 0 || fillit(fd) == -1)
+	{
+		ft_putendl("error");
+		return (-1);
+	}
 	return (0);
 }

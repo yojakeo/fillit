@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:18:13 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/03 04:07:31 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/04 03:42:01 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,19 @@ char	*gnltopiece(char ***gnlread)
 
 	line = 0;
 	piece = ft_strnew(0);
+	if (**gnlread == NULL)
+		return (NULL);
 	while (line != 5)
 	{
 		if (**gnlread)
 		{
 			if (!(tmp = ft_strjoin(piece, **(gnlread))))
-				ERROR("GNL convert(alloc) fail!", NULL)
+				return (NULL);
 			ft_strdel(&piece);
 			piece = tmp;
 		}	
-		if (!(tmp = ft_strjoin(piece, "\n")))
-			ERROR("GNL convert(alloc) fail!", NULL)
+		if ((!**gnlread && line != 4) || !(tmp = ft_strjoin(piece, "\n")))
+			return (NULL);
 		ft_strdel(&piece);
 		piece = tmp;
 		++(*gnlread);
@@ -47,9 +49,20 @@ char	*gnltopiece(char ***gnlread)
 }
 
 /*
-**	confirms the formating of the piece by measuring 3 things:
+**	Checks the file for extra new lines after gnltopiece.
+*/
+
+int		gnl_check(char **gnlread)
+{
+	if ((*gnlread == NULL) || (*gnlread - 1 == NULL && *gnlread - 2 == NULL))
+		return (0);
+	return (1);
+}
+
+/*
+**	Confirms the formating of the piece by measuring mainly these 5 things:
 **	The piece is made only of " # . \n ".
-**	There are 4 '#' in the piece.
+**	There are 4 '#' in the piece along with 12 '.' chars.
 **	It is a 4 x 4 grid.
 **	Each '#' is next to another '#' directly vertically or horizontally.
 **	If it's valid then 0 is returned, else -1 is returned.
@@ -67,19 +80,36 @@ int		format_confirm(char *piece)
 	while (piece[++pos] && pos != 21)
 	{
 		if (!(piece[pos] == '.' || piece[pos] == '#' || piece[pos] == '\n'))
-			ERROR("Piece format fail!(Invalid char)", -1)
+			return (-1);
 		if (piece[pos] == '#')
 			++blockcount;
+		if (piece[pos] == '.')
+			++dotcount;
 		if (piece[pos] == '#' && !((BCHECK(-1) && piece[pos - 1] == '#') \
 		|| piece[pos + 1] == '#' || (BCHECK(-5) && piece[pos - 5] == '#') \
 		|| (BCHECK(5) && piece[pos + 5] == '#')))
-			ERROR("Piece format fail!(No connected blocks)", -1)
-		if (piece[pos] == '#' && piece[pos + 1] == '.' && piece[pos + 2] == '#')
-			ERROR("Piece format fail!(Broken up piece)", -1)
-		if (piece[pos] == '.')
-			++dotcount;
+			return (-1);
+		if (format_extra(piece, pos) == -1)
+			return (-1);
 	}
 	if (piece[pos] || blockcount != 4 || pos != 21 || dotcount != 12)
-		ERROR("Piece format fail!(Bad pos or block count)", -1)
+		return (-1);
+	return (0);
+}
+
+/*
+**	Extra format checks. Checks for diagonals, broken up pieces.
+*/
+
+int		format_extra(char *piece, int pos)
+{
+	if (piece[pos] == '#' && piece[pos + 1] == '.' && piece[pos + 2] == '#')
+		return (-1);
+	if (piece[pos] == '#' && (piece[pos + 1] != '#' && piece[pos + 5] != '#') \
+	&& (BCHECK(6) && piece[pos + 6] == '#'))
+		return (-1);
+	if (piece[pos] == '#' && piece[pos + 5] == '.' \
+	&& (BCHECK(10) && piece[pos + 10] == '#'))
+		return (-1);
 	return (0);
 }

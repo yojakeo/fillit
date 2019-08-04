@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:20:55 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/03 04:08:51 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/04 03:21:10 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ char	*piece_convert(char *piece)
 	while (blockcount != 4)
 	{
 		if ((c = block_test(piece, res, &i, &blockcount)) == NULL)
-			ERROR("Convert fail!", NULL);
+			return (NULL);
 		if (c[0] == 'E')
 			break ;
 		if (!(tmp = ft_strjoin(res, c)))
-			ERROR("Convert(alloc) fail!", NULL);
+			return (NULL);
 		ft_strdel(&res);
 		res = tmp;
 	}
@@ -92,6 +92,11 @@ char	*block_test(char *piece, char *res, int *i, int *blockcount)
 		++resi;
 	if ((c = check_backtrack(piece, res, i, blockcount)) != NULL)
 		return (c);
+	else if (BCHECK(-4) && piece[*i - 4] == '#' && LCHECK && RCHECK)
+	{
+		++blockcount;
+		return (breturn(i, -2, blockcount, "L"));
+	}
 	else if (DCHECK && ((!RCHECK && !LCHECK) || \
 	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
 		return (breturn(i, 5, blockcount, "D"));
@@ -128,8 +133,8 @@ char	*check_backtrack(char *piece, char *res, int *i, int *blockcount)
 	else if (BCHECK(6) && RCHECK && !LCHECK && !DCHECK && piece[*i + 6] == '#' \
 	&& res[resi] == 'L')
 		return (breturn(i, 6, blockcount, "RD"));
-	else if (BCHECK(-6) && !RCHECK && LCHECK && piece[*i - 2] == '#' && piece[*i - 6] == '#' \
-	&& res[resi] == 'R')
+	else if (BCHECK(-6) && !RCHECK && LCHECK && piece[*i - 2] == '#' \
+	&& piece[*i - 6] == '#' && res[resi] == 'R')
 		return (breturn(i, -2, blockcount, "LL"));
 	else if (RCHECK && LCHECK && DCHECK && res[resi] == 'R')
 		return (breturn(i, 5, blockcount, "RLD"));

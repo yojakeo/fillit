@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 22:32:19 by jetownle          #+#    #+#             */
-/*   Updated: 2019/08/03 02:03:06 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/04 01:21:26 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ char	**make_map(int size)
 
 	i = -1;
 	if (!(map = (char **)ft_memalloc(sizeof(char *) * (size + 1))))
-		ERROR("Make_map alloc fail!(Double Pointer)", NULL);
+		return (NULL);
 	while (++i < size)
 	{
 		if (!(map[i] = (char *)malloc(sizeof(char) * size + 1)))
-			ERROR("Make_map alloc fail!(Single Pointer)", NULL);
+			return (NULL);
 		ft_memset(map[i], '.', size);
 		map[i][size] = 0;
 	}
