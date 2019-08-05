@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:20:55 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/04 03:21:10 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/04 22:48:19 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,7 @@ char	*block_test(char *piece, char *res, int *i, int *blockcount)
 	if ((c = check_backtrack(piece, res, i, blockcount)) != NULL)
 		return (c);
 	else if (BCHECK(-4) && piece[*i - 4] == '#' && LCHECK && RCHECK)
-	{
-		++blockcount;
 		return (breturn(i, -2, blockcount, "L"));
-	}
 	else if (DCHECK && ((!RCHECK && !LCHECK) || \
 	((LCHECK || RCHECK) && (res[resi] == 'R' || res[resi] == 'L'))))
 		return (breturn(i, 5, blockcount, "D"));

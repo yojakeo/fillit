@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/01 19:49:05 by jetownle          #+#    #+#             */
-/*   Updated: 2019/08/03 02:51:03 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/04 22:42:02 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,7 @@ char	**ft_readfd(int fd)
 		gnlread[count - 1] = holder;
 		ft_strdel((char **)&temp);
 	}
+	if (((count + 1) % 5) != 0)
+		return (NULL);
 	return (gnlread);
 }

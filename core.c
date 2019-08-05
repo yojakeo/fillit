@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/13 21:04:20 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/04 03:45:00 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/04 23:16:56 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 
 int		format_core(char **gnlread, t_piece *pieces)
 {
-	int i;
-
-	i = 0;
 	pieces->count = 0;
 	if (!gnlread)
 		return (-1);
@@ -30,15 +27,14 @@ int		format_core(char **gnlread, t_piece *pieces)
 	{
 		if (pieces->count == 27)
 			return (-1);
-		if ((!(pieces->pieces[i] = gnltopiece(&gnlread))) \
-		|| (*gnlread == NULL && *gnlread + 1 == NULL) \
-		|| (format_confirm(pieces->pieces[i])) \
-		|| (!(pieces->pieces[i] = piece_convert(pieces->pieces[i]))))
+		if ((!(pieces->pieces[pieces->count] = gnltopiece(&gnlread))) \
+		|| (format_confirm(pieces->pieces[pieces->count])) \
+		|| (!(pieces->pieces[pieces->count] = \
+		piece_convert(pieces->pieces[pieces->count]))))
 			return (-1);
-		++i;
 		++pieces->count;
 	}
-	pieces->pieces[i] = NULL;
+	pieces->pieces[pieces->count] = NULL;
 	return (0);
 }
 
