@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/24 22:32:19 by jetownle          #+#    #+#             */
-/*   Updated: 2019/08/04 01:21:26 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/05 22:10:44 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,5 @@ void	freemap(t_map *map)
 	i = 0;
 	while (i < map->size)
 		ft_strdel(&map->map[i++]);
-	ft_strdel(map->map);
+	free(map->map);
 }
