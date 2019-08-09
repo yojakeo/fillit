@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/08 16:20:55 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/04 22:48:19 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/08 18:49:50 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 
 /*
 **	Converts 21 char strings to "Directional Format"
-**	key Legend: S is start(anchor), R is right, D is down, L is left.
-**	S is always the upper most left pound of the piece (height being priority).
-**	piece_convert takes the tetromino and converts it to a map of the piece
+**	Char Legend: S is start(anchor), R is right, D is down, L is left.
+**	S is always the upper most left block of the piece (height being priority).
+**	piece_convert takes the piece and converts it to a map of the piece
 **	using the above legend, S always is at the start.
-**	      The following piece would be formated in *piece[27] as "SDRLL".
-**	..#.  After each char read it would place that block of the piece.
-**	.###  Essentially guiding the program though the piece from the anchor.
+**			The following piece would be formated in *piece[27] as "SDRLL".
+**	..#.	Directional Formatting essentially guides the program though the
+**	.###	piece from the anchor point.
 */
 
 char	*piece_convert(char *piece)
@@ -69,17 +69,9 @@ char	*breturn(int *i, int amt, int *blockcount, char *charres)
 
 /*
 **	Tests to see if block has been mapped yet. if so it returns the proper
-**	char for the direction. If not it returns NULL.
-**	CASES
-**	D is Down, L is Left, R is Right.
-**	Return priority:
-**	If D && NOT R & L are return "D".
-**	If L = true && D and R = false return "L".
-**	If R && previously didn't go L, return "R".
-**	program should never need to go up. Since it starts from the top-left down.
-**	if only 1 connected block from iterated point and
-**	the blockcount is not 4, go back. (EX: If last cycle
-**	added R (right), add an L (left) to go back to last point.)
+**	char for the direction.
+**	Program should never need to go up. Since it starts from the top-left down.
+**	the BCHECK macro is a index check as to not Segfault.
 */
 
 char	*block_test(char *piece, char *res, int *i, int *blockcount)
@@ -112,6 +104,7 @@ char	*block_test(char *piece, char *res, int *i, int *blockcount)
 **	###. ##.. .#.. #... ###. .#.. .##.
 **	#... #... ###. ##.. .#.. ##.. ##..
 **		 #...	   #...      .#..
+**	These are edge cases that the algorithm gets stuck on at certain parts.
 */
 
 char	*check_backtrack(char *piece, char *res, int *i, int *blockcount)

@@ -6,7 +6,7 @@
 /*   By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 00:27:02 by japarbs           #+#    #+#             */
-/*   Updated: 2019/08/04 04:47:47 by japarbs          ###   ########.fr       */
+/*   Updated: 2019/08/08 15:19:30 by japarbs          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char					**ft_readfd(int fd);
 */
 char					*gnltopiece(char ***gnlread);
 int						format_confirm(char *piece);
-int						format_extra(char *piece, int pos);
+void					format_connect(char *piece, int pos, int *blockcount);
 /*
 **	Converting
 */

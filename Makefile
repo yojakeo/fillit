@@ -6,7 +6,7 @@
 #    By: japarbs <japarbs@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/09 21:22:50 by japarbs           #+#    #+#              #
-#    Updated: 2019/08/04 22:57:16 by japarbs          ###   ########.fr        #
+#    Updated: 2019/08/08 14:19:55 by japarbs          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ $(NAME):
 debug:
 	make -C libftplus/
 	gcc -g $(FLAGS) -o $(NAME) $(SRCF) -I $(INCLUDES) -L. libftplus/libft.a
-#-fsanitize=address
+
 clean:
 	/bin/rm -f $(OBJ)
 	make -C libftplus/ clean
